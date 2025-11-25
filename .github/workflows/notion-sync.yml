@@ -1,4 +1,4 @@
-name: Sync Notion Page
+name: Sync Notion Page 2
 
 on:
   workflow_dispatch:
