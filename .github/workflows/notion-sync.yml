@@ -1,0 +1,26 @@
+name: Sync Notion Page
+
+on:
+  workflow_dispatch:
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Export Notion page to Markdown
+        uses: jannemattila/notion2md-action@v2
+        with:
+          notion-token: ${{ secrets.NOTION_TOKEN }}
+          page-url: "https://pagina-tienda-huella-hurbana.notion.site/Huella-Urbana-29c1ac9afb7b802e83bac4d5b06253d9"
+          output-dir: "./notion-export"
+
+      - name: Commit and push changes
+        run: |
+          git config user.email "actions@github.com"
+          git config user.name "GitHub Actions"
+          git add .
+          git commit -m "Sync Notion page" || echo "No changes to commit"
+          git push
